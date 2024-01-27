@@ -37,16 +37,16 @@ void bubbleDownHeap(struct heap* h, int i) {
     while (i < h->used) {
         int left = LEFT_CHILD(i);
         int right = RIGHT_CHILD(i);
-        int smallest = i;
-        if (left < h->used && h->arr[left] < h->arr[smallest]) {
-            smallest = left;
+        int biggest = i;
+        if (left < h->used && h->arr[left] > h->arr[biggest]) {
+            biggest = left;
         }
-        if (right < h->used && h->arr[right] < h->arr[smallest]) {
-            smallest = right;
+        if (right < h->used && h->arr[right] > h->arr[biggest]) {
+            biggest = right;
         }
-        if (smallest != i) {
-            swap(h->arr, i, smallest);
-            i = smallest;
+        if (biggest != i) {
+            swap(h->arr, i, biggest);
+            i = biggest;
         } else {
             break;
         }
@@ -55,7 +55,7 @@ void bubbleDownHeap(struct heap* h, int i) {
 
 int getMaxHeap(struct heap* h) {
   int max = h->arr[0];
-  h->arr[0] = h->arr[h->used--];
+  h->arr[0] = h->arr[--h->used];
   bubbleDownHeap(h, 0);
   return max;
 }
